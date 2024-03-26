@@ -1,6 +1,6 @@
 playbook: Yahoo Finance Connector
 tasks:
   - name: Extract Data from Yahoo Finance
-    connector: KroulyYahooCryptopConnector
+    connector: KroulyYahooCryptoConnector
     parameters:
       url: https://finance.yahoo.com/crypto

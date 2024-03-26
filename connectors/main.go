@@ -83,7 +83,7 @@ func main() {
 		fmt.Println("Executing task:", task.Name)
 
 		switch task.Connector {
-		case "KroulyYahooCryptopConnector":
+		case "KroulyYahooCryptoConnector":
 			connector := NewKroulyConnector(task.Params.URL)
 			err := connector.ExtractData(collector)
 			if err != nil {
