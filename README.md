@@ -10,7 +10,7 @@
   <p align="center">
     An elegant way to build apps with power tools to extract data.
     <br />
-    Made in <a href="https://www.systec.dev" target="_blank">Mexico</a>🌵🇲🇽
+      Made for devs 🐢
     <br />
     <a href="https://github.com/kroulyhq/krouly/docs"><strong>Explore the docs »</strong></a>
     <br />
