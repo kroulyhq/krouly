@@ -34,10 +34,13 @@ func NewKroulyConnector(url string) *KroulyConnector {
 
 func (c *KroulyConnector) ExtractData(collector *colly.Collector) error {
 	// extract data from the specified URL using Colly
-	collector.OnHTML("body", func(e *colly.HTMLElement) {
-		// extract data here, you can use e.DOM.Find or other methods provided by Colly
-		title := e.ChildText("title")
-		fmt.Println("Title:", title)
+	collector.OnHTML("tr.simpTblRow", func(e *colly.HTMLElement) {
+		// Find all rows with the class "simpTblRow"
+		symbol := e.ChildText("a[data-test='quoteLink']")                      // Extract symbol from the link with data-test attribute "quoteLink"
+		price := e.ChildText("td[aria-label='Price (Intraday)'] fin-streamer") // Extract price from the specified cell
+
+		// Print the extracted data
+		fmt.Printf("Symbol: %s, Price: %s\n", symbol, price)
 	})
 
 	// start extraction
