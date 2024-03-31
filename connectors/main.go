@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 
@@ -32,7 +33,13 @@ func NewKroulyConnector(url string) *KroulyConnector {
 	}
 }
 
+type CryptoData struct {
+	Symbol string `json:"symbol"`
+	Price  string `json:"price"`
+}
+
 func (c *KroulyConnector) ExtractData(collector *colly.Collector) error {
+	var connectorData []CryptoData
 	// extract data from the specified URL using Colly
 	collector.OnHTML("tr.simpTblRow", func(e *colly.HTMLElement) {
 		// Find all rows with the class "simpTblRow"
@@ -41,12 +48,26 @@ func (c *KroulyConnector) ExtractData(collector *colly.Collector) error {
 
 		// Print the extracted data
 		fmt.Printf("Symbol: %s, Price: %s\n", symbol, price)
+		connectorData = append(connectorData, CryptoData{Symbol: symbol, Price: price})
 	})
 
 	// start extraction
 	err := collector.Visit(c.URL)
 	if err != nil {
 		return fmt.Errorf("error visiting URL: %v", err)
+	}
+
+	// Covert to JSON
+	jsonData, err := json.Marshal(connectorData)
+	if err != nil {
+		return fmt.Errorf("error marshalling JSON: %v", err)
+	}
+
+	// Write to local file
+	filePath := "../storage/cryptodata.json" // Ruta del archivo de almacenamiento
+	err = os.WriteFile(filePath, jsonData, 0644)
+	if err != nil {
+		return fmt.Errorf("error writing file: %v", err)
 	}
 
 	return nil
