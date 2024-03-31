@@ -1,2 +1,6 @@
-- lel:
-  - copters: 'lorem'
+playbook: Yahoo Finance Connector
+tasks:
+  - name: Extract Data from Yahoo Finance
+    connector: KroulyYahooCryptoConnector
+    parameters:
+      url: https://finance.yahoo.com/crypto
