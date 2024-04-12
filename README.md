@@ -12,10 +12,10 @@
     <br />
       Made for devs 🐢
     <br />
-    <a href="https://github.com/kroulyhq/krouly/docs"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.krouly.com"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://krouly-web.vercel.app/">View Demo</a>
+    <a href="https://www.krouly.com/">View Demo</a>
     ·
     <a href="https://github.com/kroulyhq/krouly/issues">Report Bug</a>
     ·
