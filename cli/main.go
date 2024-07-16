@@ -6,6 +6,8 @@ import (
 	"os/exec"
 	"path/filepath"
 
+	services "ai-service"
+
 	"github.com/spf13/cobra"
 )
 
@@ -35,7 +37,7 @@ var createCmd = &cobra.Command{
 		}
 
 		// Generate Preact files in the client directory
-		if err := generateMainJS(clientDir, name); err != nil {
+		if err := generateMainJS(clientDir); err != nil {
 			fmt.Println(err)
 			return
 		}
@@ -70,6 +72,21 @@ var runCmd = &cobra.Command{
 	},
 }
 
+var runAICmd = &cobra.Command{
+	Use:   "run-ai",
+	Short: "Run the AI inference on extracted data",
+	Run: func(cmd *cobra.Command, args []string) {
+		filePath := "../storage/cryptodata.json"
+		predictions, err := services.RunAIInference(filePath)
+		if err != nil {
+			fmt.Println("Error running AI inference:", err)
+			return
+		}
+
+		fmt.Println("Predictions:", predictions)
+	},
+}
+
 func installPreact(targetDir string) error {
 	cmd := exec.Command("npm", "install", "preact", "preact-router")
 	cmd.Dir = targetDir
@@ -80,7 +97,7 @@ func installPreact(targetDir string) error {
 	return nil
 }
 
-func generateMainJS(targetDir, name string) error {
+func generateMainJS(targetDir string) error {
 	mainJS := `import { h, render } from 'preact';
 import App from './components/App';
 
@@ -122,6 +139,7 @@ func generateIndexHTML(targetDir, name string) error {
 func main() {
 	rootCmd.AddCommand(createCmd)
 	rootCmd.AddCommand(runCmd)
+	rootCmd.AddCommand(runAICmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
