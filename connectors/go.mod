@@ -3,7 +3,7 @@ module krouly/connectors
 go 1.21.4
 
 require (
-	github.com/PuerkitoBio/goquery v1.9.1
+	github.com/PuerkitoBio/goquery v1.9.1 // indirect
 	github.com/gocolly/colly v1.2.0
 	gopkg.in/yaml.v2 v2.4.0
 )
